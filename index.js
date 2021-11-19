@@ -5,10 +5,25 @@ var linkListCarrefour = require('./linkListCarrefour');
 const puppeteer = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 const AdblockerPlugin = require('puppeteer-extra-plugin-adblocker')
+var express = require('express');
 
 
  puppeteer.use(StealthPlugin())
  puppeteer.use(AdblockerPlugin({ blockTrackers: true }))
+
+
+ var app = express();
+
+app.set('port', (process.env.PORT || 5000));
+
+//For avoidong Heroku $PORT error
+app.get('/', function(request, response) {
+    var result = 'App is running'
+    response.send(result);
+}).listen(app.get('port'), function() {
+    console.log('App is running, server is listening on port ', app.get('port'));
+});
+
 
 
 //const iPhone = puppeteer.devices['iPhone 6'];
@@ -58,6 +73,8 @@ function amazonScraper(link, last, checked) {
       const browser = await puppeteer.launch({
          args: [
            '--incognito',
+           '--no-sandbox', 
+           '--disable-setuid-sandbox'
          ],
        }); //{headless: false} 
       const page = await browser.newPage();
