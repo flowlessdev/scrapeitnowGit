@@ -46,7 +46,7 @@ console.log('Starting...');
 
 
 
-Amazon
+// Amazon
   setInterval(function () {
 
 let checked = 0;
