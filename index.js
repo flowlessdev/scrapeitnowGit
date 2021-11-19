@@ -41,24 +41,24 @@ let linksCarrefour = linkListCarrefour;
 console.log('Starting...');
 
 
-let checked = 0;
-amazonScraper(linksAmazon[0], linksAmazon.length - 1, checked);
-
-
-
-//Amazon
-//   setInterval(function () {
-
 // let checked = 0;
 // amazonScraper(linksAmazon[0], linksAmazon.length - 1, checked);
 
 
-// for (let n = 0; n < linksUnieuro.length; n++) {
-//    unieuroScraper(linksUnieuro[n]);
-//  }
+
+Amazon
+  setInterval(function () {
+
+let checked = 0;
+amazonScraper(linksAmazon[0], linksAmazon.length - 1, checked);
 
 
-//   }, the_interval);
+for (let n = 0; n < linksUnieuro.length; n++) {
+   unieuroScraper(linksUnieuro[n]);
+ }
+
+
+  }, the_interval);
 
 
 
