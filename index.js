@@ -53,9 +53,9 @@ let checked = 0;
 amazonScraper(linksAmazon[0], linksAmazon.length - 1, checked);
 
 
-for (let n = 0; n < linksUnieuro.length; n++) {
-   unieuroScraper(linksUnieuro[n]);
- }
+// for (let n = 0; n < linksUnieuro.length; n++) {
+//    unieuroScraper(linksUnieuro[n]);
+//  }
 
 
   }, the_interval);
