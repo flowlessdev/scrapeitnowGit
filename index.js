@@ -30,6 +30,7 @@ let checked = 0;
 amazonScraper(linksAmazon[0], linksAmazon.length - 1, checked);
 
 
+
 //Amazon
 //   setInterval(function () {
 
