@@ -81,6 +81,9 @@ function amazonScraper(link, last, checked) {
       //await page.emulate(iPhone);
       await page.goto(link.link);
 
+      console.log('Inizio Scraping Amazon, going to link: ', link.link);
+
+
       //COOKIE
         try {
           var el = await page.waitForSelector('#sp-cc-accept', {timeout: 1000}).catch(err => {
@@ -177,6 +180,7 @@ function amazonScraper(link, last, checked) {
 function unieuroScraper(link) {
 
    (async () => {
+      console.log('Inizio Scraping Unieuro...');
 
          const browser = await puppeteer.launch({
             args: [
@@ -192,10 +196,7 @@ function unieuroScraper(link) {
          //COOKIE
            try {
              var el = await page.waitForSelector('#onetrust-accept-btn-handler', {timeout: 1000}).catch(err => {
-               if (!shouldClose(last, checked)) {
-                  checked += 1;
-                  amazonScraper(linksAmazon[checked], last, checked);
-               }
+                console.log('Errore di cookie');
              }
              );
              await page.click(el._remoteObject.description);
