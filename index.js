@@ -53,9 +53,9 @@ let checked = 0;
 amazonScraper(linksAmazon[0], linksAmazon.length - 1, checked);
 
 
-// for (let n = 0; n < linksUnieuro.length; n++) {
-//    unieuroScraper(linksUnieuro[n]);
-//  }
+for (let n = 0; n < linksUnieuro.length; n++) {
+   unieuroScraper(linksUnieuro[n]);
+ }
 
 
   }, the_interval);
@@ -84,6 +84,7 @@ function amazonScraper(link, last, checked) {
       //COOKIE
         try {
           var el = await page.waitForSelector('#sp-cc-accept', {timeout: 1000}).catch(err => {
+             console.log("cookie timeout, probable bot control")
             if (!shouldClose(last, checked)) {
                checked += 1;
                amazonScraper(linksAmazon[checked], last, checked);
@@ -177,15 +178,27 @@ function unieuroScraper(link) {
 
    (async () => {
 
-      try {
-         //AVVIO
-         const browser = await puppeteer.launch();
+         const browser = await puppeteer.launch({
+            args: [
+              '--incognito',
+              '--no-sandbox', 
+              '--disable-setuid-sandbox'
+            ],
+          }); //{headless: false} 
          const page = await browser.newPage();
+         //await page.emulate(iPhone);
          await page.goto(link.link);
-
+   
          //COOKIE
-         var el = await page.waitForSelector('#onetrust-accept-btn-handler');
-         await el.evaluate(el => el.click());
+           try {
+             var el = await page.waitForSelector('#onetrust-accept-btn-handler', {timeout: 1000}).catch(err => {
+               if (!shouldClose(last, checked)) {
+                  checked += 1;
+                  amazonScraper(linksAmazon[checked], last, checked);
+               }
+             }
+             );
+             await page.click(el._remoteObject.description);
 
          // CONTROLLO DISPONIBILITA'
          let spanElement = await page.$$('div.available > span.message');
